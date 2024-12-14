@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/ainet2025ppf', [FormController::class, 'getPpf'])->name('form.ppf');
+Route::post('/ainet2025ppf', [FormController::class, 'storePpfs'])->name('form.ppf');
 
 Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
@@ -31,7 +33,6 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::get('/user/status/{id}', [UserController::class, 'status'])->name('user.status');
     Route::get('/user/export', [UserController::class, 'export'])->name('user.export');
 
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
